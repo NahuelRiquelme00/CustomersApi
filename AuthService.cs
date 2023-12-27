@@ -16,11 +16,11 @@ namespace CustomersApi
         public async Task<Auth> Auth(string username, string password)
         {
             Auth auth = new Auth();
-            var data = await _authRepository.Auth(username, password);
+            var entity = await _authRepository.Auth(username, password);
 
-            if(data.Count > 0)
+            if(entity != null)
             {
-                auth.usuario = data;
+                auth.usuario = entity.User_name;
                 auth.token = _jwtService.generateToken(username);
 
             }

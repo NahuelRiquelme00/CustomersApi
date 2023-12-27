@@ -4,6 +4,6 @@ namespace CustomersApi.Repositories
 {
     public interface IAuthRepository
     {
-        public Task<Auth?> Auth(string username, string password);
+        Task<AuthEntity?> Auth(string username, string password);
     }
 }

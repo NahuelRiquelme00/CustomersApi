@@ -55,6 +55,7 @@ builder.Services.AddDbContext<CustomerDatabaseContext>(mysqlbuilder =>
          $"Pwd=;";
     _ = mysqlbuilder.UseMySql(builder.Configuration.GetConnectionString("Connection1") , ServerVersion.AutoDetect(str));
 });
+
 builder.Services.AddScoped<IupdateCustomerUseCase, UpdateCustomerUseCase>();
 builder.Services.AddSingleton<IJwtService, JwtService>();
 
@@ -88,8 +89,8 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddSingleton<IAuthRepository, AuthRepository>();
-builder.Services.AddSingleton<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

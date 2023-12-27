@@ -21,9 +21,14 @@ namespace CustomersApi
                 new Claim(ClaimTypes.NameIdentifier, user),
             };
 
-            var KEY = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
-            var credentials = new SigningCredentials(KEY, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(issuer : _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Audience"], claims: claims, expires : DateTime.UtcNow.AddHours(Convert.ToDouble(_configuration["Jwt:ExpirationHours"]))
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:SecretKey").Value));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                issuer: _configuration.GetSection("Jwt:Issuer").Value,
+                audience: _configuration.GetSection("Jwt:Audience").Value,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(Convert.ToDouble(_configuration.GetSection("Jwt:ExpirationHours").Value)),
+                signingCredentials: credentials
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(token);

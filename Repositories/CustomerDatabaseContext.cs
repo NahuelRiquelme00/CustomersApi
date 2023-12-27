@@ -14,6 +14,8 @@ namespace CustomersApi.Repositories
 
         public DbSet<CustomerEntity> Customers {  get; set; }
 
+        public DbSet<AuthEntity> Auths { get; set; }
+
         public async Task<CustomerEntity?> Get(long id)
         {
             return await Customers.FirstOrDefaultAsync(x => x.Id == id);

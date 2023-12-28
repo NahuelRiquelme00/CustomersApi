@@ -1,4 +1,5 @@
 ﻿using CustomersApi.Repositories;
+using Serilog;
 
 namespace CustomersApi
 {
@@ -23,10 +24,14 @@ namespace CustomersApi
                 auth.usuario = entity.User_name;
                 auth.token = _jwtService.generateToken(username);
 
+                Log.Information("El usuario {@username} se autentifico correctamente", username);
+
             }
             else
             {
                 auth.usuario = "Credenciales incorrectos";
+
+                Log.Information("El usuario {@username} fallo en autentificarse", username);
             }
             return auth;
         }

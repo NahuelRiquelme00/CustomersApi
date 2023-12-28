@@ -1,5 +1,6 @@
 ﻿using CustomersApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace CustomersApi.Controllers
 {
@@ -25,7 +26,7 @@ namespace CustomersApi.Controllers
 
         [HttpPost("auth")]
         public async Task<Auth> Auth(string username, string password)
-        {
+        {          
            return await _authService.Auth(username, password);
         }
 

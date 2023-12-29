@@ -97,10 +97,14 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+//Log.Logger = new LoggerConfiguration()
+//    .MinimumLevel.Information()
+//    .WriteTo.Console()
+//    .WriteTo.File("logs/myLog-.txt", rollingInterval: RollingInterval.Day)
+//    .CreateLogger();
+
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .WriteTo.Console()
-    .WriteTo.File("logs/myLog-.txt", rollingInterval: RollingInterval.Day)
+    .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 
 var app = builder.Build();
